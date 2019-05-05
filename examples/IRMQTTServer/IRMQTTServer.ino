@@ -354,7 +354,7 @@ uint32_t mqttSentCounter = 0;
 uint32_t mqttRecvCounter = 0;
 bool wasConnected = true;
 
-char MqttServer[kHostnameLength + 1] = "10.0.0.4";
+char MqttServer[kHostnameLength + 1] = "dell1";
 char MqttPort[kPortLength + 1] = "1883";
 char MqttUsername[kUsernameLength + 1] = "";
 char MqttPassword[kPasswordLength + 1] = "";
@@ -2478,6 +2478,20 @@ void loop(void) {
     irRecvCounter++;
     debug("Incoming IR message sent to MQTT:");
     debug(lastIrReceived.c_str());
+
+    if (capture.decode_type == DAIKIN) {
+      IRDaikinESP ac(0);
+      ac.setRaw(capture.state);
+      String ac_string = ac.toString();
+      debug(ac_string.c_str());
+#if MQTT_ENABLE
+      // sendClimate(climate_prev, climate, MqttClimateStat,
+      //             true, false, false);
+
+      mqtt_client.publish(MqttLog.c_str(), ac_string.c_str());
+#endif
+    }
+
   }
 #endif  // IR_RX
   delay(100);

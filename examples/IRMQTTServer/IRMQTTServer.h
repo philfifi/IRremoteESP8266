@@ -23,12 +23,12 @@
 #define BAUD_RATE 115200  // Serial port Baud rate.
 
 // GPIO the IR LED is connected to/controlled by. GPIO 4 = D2.
-#define IR_LED 4  // <=- CHANGE_ME (optional)
+#define IR_LED BUILTIN_LED  // <=- CHANGE_ME (optional)
 // define IR_LED 3  // For an ESP-01 we suggest you use RX/GPIO3/Pin 7.
 
 // GPIO the IR RX module is connected to/controlled by. e.g. GPIO 14 = D5.
 // Comment this out to disable receiving/decoding IR messages entirely.
-#define IR_RX 14  // <=- CHANGE_ME (optional)
+#define IR_RX D2  // <=- CHANGE_ME (optional)
 #define IR_RX_PULLUP false
 
 // --------------------- Network Related Settings ------------------------------
